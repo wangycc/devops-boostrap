@@ -1,0 +1,5 @@
+---
+reporter_grpc_host_port: 10.100.100.122:14250 
+reporter_type: grpc
+jaeger_bin_dir: /data/apps/jaeger/bin
+jaeger_version: 1.14.0

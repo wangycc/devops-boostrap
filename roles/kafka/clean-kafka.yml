@@ -1,0 +1,30 @@
+# WARNNING: clean 'etcd' nodes service & data
+- hosts: "{{ servers }}"
+  vars:
+  - Dir: "/data"
+  vars_prompt:
+  - name: "sure"
+    prompt: "Are you sure want delete etcd"
+  tasks:
+  - name: make choice
+    debug: msg={{ sure }}
+  - name: stop and disable kafka service
+    service:
+      name: kafka
+      state: stopped
+      enabled: no
+    ignore_errors: true
+
+  - name: stop and disable zookeeper service
+    service:
+      name: zookeeper
+      state: stopped
+      enabled: no
+    ignore_errors: true
+
+  - name: remove files and dirs
+    file: name={{ item }} state=absent
+    with_items:
+    - "{{ Dir }}/kafka"
+    - "/etc/systemd/system/kafka.service"
+    - "/etc/systemd/system/zookeeper.service"

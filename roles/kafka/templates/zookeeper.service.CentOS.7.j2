@@ -1,0 +1,12 @@
+[Unit]
+Description=zookeeper
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/data/kafka_2.12-2.2.1/bin/zookeeper-server-start.sh /data/kafka_2.12-2.2.1/config/zookeeper.properties
+ExecStop=/data/kafka_2.12-2.2.1/bin/zookeeper-server-stop.sh
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target

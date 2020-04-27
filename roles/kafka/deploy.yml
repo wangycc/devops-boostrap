@@ -1,0 +1,22 @@
+---
+- hosts: "{{ servers }}"
+  vars:
+  - Dir: "/data"
+  - Zookeeper_Dir: "/data"
+  - Kafka_Port: 9092
+# broker处理磁盘net的线程数，数值为cpu核数
+  - Kafka_Net_Threads: 4
+# broker处理磁盘IO的线程数，数值为cpu核数2倍
+  - Kafka_IO_Threads: 8 
+  - Kafka_Part_Num: 6
+  - Kafka_Default_Repli: 1
+  - Kafka_Offset_set:
+    - 1
+    - 1
+    - 1
+  - Kafka_Xmx: 2
+  - Zoo_Xmx: "1G" 
+  - Retention_Hours: 72   
+  roles:
+  - kafka
+  - kafka_export

@@ -1,0 +1,12 @@
+- hosts: kafka 
+  gather_facts: yes
+  roles:
+    - kafka
+  vars:
+    zk_data_dir: "/data/kafka/zookeeper"
+    zk_port: 2181
+    zk_host_groups: test-kafka 
+    kafka_log_dirs: "/data/kafka/kafka-logs"
+    kafka_dir: "/data"
+    kafka_port: 9092
+    kafka_version: 2.3.0

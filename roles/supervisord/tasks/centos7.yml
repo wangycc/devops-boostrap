@@ -1,0 +1,9 @@
+---
+- name: Copy the systemd unit file to ecs
+  template:
+    src: "{{ role_path }}/templates/supervisord.service"
+    dest: "/usr/lib/systemd/system/supervisord.service"
+    owner: root
+    group: root
+    mode: 0755
+  notify: restart supervisord

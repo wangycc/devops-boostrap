@@ -1,0 +1,5 @@
+- name: deploy jaeger
+  hosts: filebeat
+  gather_facts: yes
+  roles:
+    - jaeger

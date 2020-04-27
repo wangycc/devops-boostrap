@@ -1,0 +1,5 @@
+---
+- name: restart jaeger-agent
+  supervisorctl:
+    name: jaeger-agent
+    state: restarted

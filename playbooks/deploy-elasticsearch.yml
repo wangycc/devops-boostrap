@@ -1,0 +1,93 @@
+- hosts: elk[0]
+  gather_facts: yes
+  roles:
+    - elasticsearch
+  vars:
+    es_version: "7.1.1"
+    es_heap_size: "6g"
+    es_data_dirs:
+      - "/data1/elasticsearch/data"
+    es_log_dir: "/data1/elasticsearch/logs"
+    es_conf_dir: "/data1/elasticsearch/config"
+    es_config:
+      node.name: "jp-elk00"
+      cluster.name: "jp-prod-elk-cluster"
+      network.host: "0.0.0.0"
+      discovery.seed_hosts: "10.120.195.232:9300,10.120.195.231:9300,10.120.195.233:9300"
+      cluster.initial_master_nodes: ["10.120.195.232","10.120.195.231","10.120.195.233"]
+      http.port: 9200
+      transport.tcp.port: 9300
+      node.data: true
+      node.master: true
+      bootstrap.memory_lock: true
+      thread_pool.write.queue_size: 3000
+      cluster.routing.allocation.same_shard.host: true
+      node.max_local_storage_nodes: 2
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+    es_api_host: 10.120.195.232 
+    es_api_port: 9200
+    es_plugins:
+     - plugin: ingest-attachment
+- hosts: elk[1] 
+  roles:
+    - elasticsearch
+  vars:
+    es_version: "7.1.1"
+    es_heap_size: "8g"
+    es_data_dirs:
+      - "/data1/elasticsearch/data"
+    es_log_dir: "/data1/elasticsearch/logs"
+    es_conf_dir: "/data1/elasticsearch/config"
+    es_config:
+      node.name: "jp-elk01"
+      cluster.name: "jp-prod-elk-cluster"
+      network.host: "0.0.0.0"
+      discovery.seed_hosts: "10.120.195.232:9300,10.120.195.231:9300,10.120.195.233:9300"
+      cluster.initial_master_nodes: ["10.120.195.232","10.120.195.231","10.120.195.233"]
+      http.port: 9200
+      transport.tcp.port: 9300
+      node.data: true
+      node.master: true
+      bootstrap.memory_lock: true
+      thread_pool.write.queue_size: 3000
+      cluster.routing.allocation.same_shard.host: true
+      node.max_local_storage_nodes: 2
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+    es_api_host: 10.120.195.231
+    es_api_port: 9200
+    es_plugins:
+     - plugin: ingest-attachment
+- hosts: elk[2] 
+  gather_facts: yes
+  roles:
+    - elasticsearch
+  vars:
+    es_version: "7.1.1"
+    es_heap_size: "6g"
+    es_data_dirs:
+      - "/data1/elasticsearch/data"
+    es_log_dir: "/data1/elasticsearch/logs"
+    es_conf_dir: "/data1/elasticsearch/config"
+    es_config:
+      node.name: "jp-elk02"
+      cluster.name: "jp-prod-elk-cluster"
+      network.host: "0.0.0.0"
+      discovery.seed_hosts: "10.120.195.232:9300,10.120.195.231:9300,10.120.195.233:9300"
+      cluster.initial_master_nodes: ["10.120.195.232","10.120.195.231","10.120.195.233"]
+      http.port: 9200
+      transport.tcp.port: 9300
+      node.data: true
+      node.master: true
+      bootstrap.memory_lock: true
+      thread_pool.write.queue_size: 3000
+      cluster.routing.allocation.same_shard.host: true
+      node.max_local_storage_nodes: 2
+      http.cors.enabled: true
+      http.cors.allow-origin: "*"
+    es_api_host: 10.120.195.233
+    es_api_port: 9200
+    es_plugins:
+     - plugin: ingest-attachment
+

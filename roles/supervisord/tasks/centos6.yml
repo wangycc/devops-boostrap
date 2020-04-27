@@ -1,0 +1,10 @@
+---
+
+- name: Copy the service file to ec2
+  template:
+    src: "{{ role_path }}/templates/supervisord"
+    dest: "/etc/init.d/supervisord"
+    owner: root
+    group: root
+    mode: 0755
+  notify: restart supervisord

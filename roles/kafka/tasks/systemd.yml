@@ -1,0 +1,42 @@
+---
+- name: zookeeper service file
+  template:
+    src: "zookeeper.service.{{ ansible_distribution }}.{{ ansible_distribution_major_version }}.j2"
+    dest: /etc/systemd/system/zookeeper.service
+    owner: root
+    group: root
+    mode: 0644
+  when: 
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+
+- name: enable zookeeper
+  systemd:
+    name: zookeeper
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  when: 
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+
+- name: kafka service file
+  template:
+    src: "kafka.service.{{ ansible_distribution }}.{{ ansible_distribution_major_version }}.j2"
+    dest: /etc/systemd/system/kafka.service
+    owner: root
+    group: root
+    mode: 0644
+  when: 
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"
+
+- name: enable kafka
+  systemd:
+    name: kafka
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  when: 
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7"

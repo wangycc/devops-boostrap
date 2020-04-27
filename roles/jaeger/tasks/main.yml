@@ -1,0 +1,29 @@
+---
+- name: Ensure directory
+  file:
+    path: "{{ jaeger_bin_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Downalod package
+  shell: |-
+    curl -sL  https://thirds-soft.oss-cn-hangzhou.aliyuncs.com/jaeger/jaeger-{{ jaeger_version }}-linux-amd64.tar.gz  | tar zxvf - jaeger-{{ jaeger_version }}-linux-amd64/jaeger-agent 
+    mv jaeger-{{ jaeger_version }}-linux-amd64/jaeger-agent {{ jaeger_bin_dir }}
+
+- name: Copy the supervisord file to ecs
+  template:
+    src: "{{ role_path }}/templates/{{ item }}"
+    dest: "/data/etc/supervisor/conf.d/{{ item }}"
+    mode: 0644
+  with_items:
+    - jaeger-agent.conf
+  notify: restart jaeger-agent
+
+- name: Set jaeger env. adding the jaeger.sh in the Profile files
+  template:
+    src: "{{ role_path }}/templates/jaeger.sh"
+    dest: /etc/profile.d/jaeger.sh
+    mode: 0644
+ 
+- name: Source the profile file
+  shell: source /etc/profile.d/jaeger.sh

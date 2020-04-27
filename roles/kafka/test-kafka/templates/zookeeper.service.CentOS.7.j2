@@ -1,0 +1,11 @@
+[Unit]
+Description=tokyo-zookeeper
+After=network.target
+
+[Service]
+Type=simple
+ExecStart={{ kafka_dir }}/kafka_2.12-{{ kafka_version }}/bin/zookeeper-server-start.sh {{ kafka_dir }}/kafka_2.12-{{ kafka_version }}/config/zookeeper.properties
+ExecStop={{ kafka_dir }}/kafka_2.12-{{ kafka_version }}/bin/zookeeper-server-stop.sh
+
+[Install]
+WantedBy=multi-user.target

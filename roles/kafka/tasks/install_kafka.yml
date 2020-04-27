@@ -1,0 +1,31 @@
+---
+- block:
+  - name: anzhuang openjdk
+    yum: name={{ item }} state=latest
+    with_items: 
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+    - java-1.8.0-openjdk-headless
+  - name: unarchive
+    unarchive: src={{ Dir }}/software/kafka_2.12-2.2.1.tgz dest={{ Dir }}
+  when: new is defined 
+- name: make data dir
+  shell: mkdir -pv {{ Dir }}/kafka/kafka-logs  && mkdir  -pv {{ Dir }}/kafka/zookeeper
+- name: echo myid 
+  shell: echo  "{{ myid }}" > {{ Zookeeper_Dir }}/kafka/zookeeper/myid
+  when: myid is defined
+- name: copy kafka config
+  template: src=server.properties.j2 dest={{ Dir }}/kafka_2.12-2.2.1/config/server.properties
+#- name: zookeeper config reset
+#  template: src=zookeeper.properties.j2  dest=/etc/ansible/roles/kafka/files/zookeeper.properties
+#  connection: local
+#  run_once: true
+#- name: zookeeper  config  init
+#  shell: 
+#    cmd: |
+#      cat >> /etc/ansible/roles/kafka/files/zookeeper.properties <<EOF
+#      server.{{ myid }}={{ ansible_default_ipv4.address }}:2888:3888
+#      EOF
+#  connection: local
+- name: copy  zookeeper  config
+  template: src=zookeeper.properties.j2 dest={{ Dir }}/kafka_2.12-2.2.1/config/zookeeper.properties

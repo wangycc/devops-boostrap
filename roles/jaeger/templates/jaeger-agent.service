@@ -1,0 +1,14 @@
+[Unit]
+Description=Jaeger Agent
+After=network-online.target
+Wants=network-online.target
+Documentation=https://www.jaegertracing.io
+[Service]
+Type=notify
+ExecStart={{ jaeger_bin_dir }}/jaeger-agent --reporter.grpc.host-port={{ reporter_grpc_host_port  }} --reporter.type={{ reporter_type }} 
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

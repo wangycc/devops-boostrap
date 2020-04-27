@@ -1,0 +1,5 @@
+- name: deploy supervisord
+  hosts: all
+  gather_facts: yes
+  roles:
+    - supervisord

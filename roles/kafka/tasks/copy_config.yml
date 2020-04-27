@@ -1,0 +1,4 @@
+- name: copy zoo.sh
+  template: src=zookeeper-server-start.sh dest={{ Dir }}/kafka_2.12-2.2.1/bin/ mode=775
+- name: copy kafka.sh
+  template: src=kafka-server-start.sh dest={{ Dir }}/kafka_2.12-2.2.1/bin/ mode=775

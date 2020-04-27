@@ -1,0 +1,43 @@
+[filebeat]
+10.118.194.139
+10.111.203.252
+10.111.203.3
+[test]
+10.106.3.2
+10.106.3.3
+[jaeger-es-node-00]
+10.111.203.15
+[jaeger-es-node-01]
+10.111.203.14
+[jaeger-es-node-02]
+10.111.209.235
+
+[nginx_test]
+10.111.203.2
+
+[nginx_static]
+10.111.201.229
+10.111.201.18
+
+[nginx_dynamic]
+10.111.203.11
+10.111.209.241
+
+[nginx_ocean]
+10.110.110.211
+10.110.111.117
+10.112.0.79
+
+[es]
+cn-hz-h-test-es00 ansible_host=10.111.131.207 kafka_broker_id=1
+cn-hz-h-test-es01 ansible_host=10.111.131.206 kafka_broker_id=2
+cn-hz-h-test-es02 ansible_host=10.111.131.205 kafka_broker_id=3
+
+[kafka]
+cn-hz-wl-test-k8s-00 ansible_host=10.106.65.1 kafka_broker_id=1
+#cn-hz-wl-test-k8s-01 ansible_host=10.106.65.2 kafka_broker_id=2
+#cn-hz-wl-test-k8s-02 ansible_host=10.106.65.3 kafka_broker_id=3
+
+[devops]
+10.111.203.127
+10.111.131.215

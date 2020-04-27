@@ -1,0 +1,4 @@
+---
+- include: install_kafka.yml
+- include: copy_config.yml
+- include: systemd.yml

@@ -1,0 +1,5 @@
+- name: kernel optimization
+  hosts: 10.106.12.27
+  gather_facts: yes
+  roles:
+    - sysctl

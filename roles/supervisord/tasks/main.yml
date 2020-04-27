@@ -1,0 +1,30 @@
+---
+- name: Ensure directory
+  file:
+    path:  "{{ item }}"
+    state: directory
+    owner: "{{ user }}"
+    mode: 0755
+  with_items:
+    - /data/etc/supervisor
+    - /data/etc/supervisor/conf.d
+    - /data/logs/supervisor
+    - /data/run
+
+- name: Install supervisord
+  pip:
+    name: supervisor
+    version: "{{ supervisord_version }}"
+
+- name: Copy configuration file to ec2
+  template:
+    src: "{{ role_path }}/templates/supervisord.conf"
+    dest: "{{ supervisord_conf }}"
+    owner: "{{ user }}"
+    mode: 0644
+
+- include: centos6.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version | version_compare('7', '<')
+
+- include: centos7.yml
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version | version_compare('7', '>=')

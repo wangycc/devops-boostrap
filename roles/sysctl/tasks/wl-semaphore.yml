@@ -1,0 +1,14 @@
+---
+- name: lineinfile modify kernel.msgmni 
+  lineinfile: 
+    path: /etc/sysctl.conf
+    state: present
+    regexp: '^kernel.msgmni( |=)+'
+    line: 'kernel.msgmni=16384'
+- name: lineinfile modify  kernel.sem
+  lineinfile: 
+    path: /etc/sysctl.conf
+    regexp: '^kernel.sem( |=)+'
+    line: 'kernel.sem=250 32000 100 1024'
+- name: sysctl 
+  shell: sysctl -p

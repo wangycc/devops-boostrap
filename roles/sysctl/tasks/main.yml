@@ -1,0 +1,8 @@
+---
+- name: Copy default-sysctl.conf to /etc/sysctl.conf
+  copy:
+    src: "/data/default-sysctl.conf"
+    dest: "/etc/sysctl.conf"
+    mode: 0755
+    backup: true
+  

@@ -1,0 +1,4 @@
+---
+ZOO_LIST: "{% for h in ansible_play_hosts %}server.{{ hostvars[h]['myid'] }}={{ hostvars[h]['ansible_facts']['default_ipv4']['address'] }}:2888:3888\n{% endfor %}"
+ZOO_CONN_TEMP: "{% for h in ansible_play_hosts %}{{ hostvars[h]['ansible_facts']['default_ipv4']['address'] }}:2181,{% endfor %}"
+ZOO_CONN: "{{ ZOO_CONN_TEMP.rstrip(',') }}"
